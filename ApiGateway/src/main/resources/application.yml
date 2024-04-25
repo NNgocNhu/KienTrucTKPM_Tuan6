@@ -1,0 +1,27 @@
+server:
+  port: 8586
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: ProductService
+          uri: lb://ProductService
+          predicates:
+            - Path=/api/v1/products/**
+        - id: OrderService
+          uri: lb://OrderService
+          predicates:
+            - Path=/api/v1/orders/**
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+
+
